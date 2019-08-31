@@ -61,15 +61,14 @@ class App extends Component {
                 render={(props) =>
                   <React.Fragment>
                     <Sidebar 
-                      folders={folders}
-                      onClickFolder={this.onClickFolder}
+                      notes={notes}
                       {...props}
+                      noteId={props.match.params.noteId}
                     />
                     <Main
                       notes={notes}
-                      onClickNote={this.onClickNote} 
                       {...props}
-                      folderId={props.match.params.folderId}
+                      noteId={props.match.params.noteId}
                     />
                   </React.Fragment>  
                 }

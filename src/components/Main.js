@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import "./Main.css";
 import Note from "./Note";
 
 class Main extends Component {
+    static defaultProps={
+        notes: []
+    }
     render() {
         let notes = this.props.notes;
         let folderId = this.props.folderId;
+        let noteId = this.props.noteId;
+        let contentHolder = null;
         if (folderId) {
-                notes = notes.filter(note => note.folderId === folderId
-            )
+            notes = notes.filter(note => note.folderId === folderId)
+        }
+        if (noteId) {
+            console.log(noteId)
+            console.log(notes)
+            notes = notes.filter(note => note.id === noteId)
+            notes.forEach(note => {
+                contentHolder = note.content
+            })
         }
         return (
             <div className="App-main">
@@ -23,7 +36,15 @@ class Main extends Component {
                         </li>
                     )}
                 </ul>
-                <button className="add-note-button">Add folder</button>
+                { (noteId && contentHolder) || 
+                    <Link
+                        to='/'
+                        type='button'
+                        className="Main-add-note-button"
+                    >
+                        Add Note
+                    </Link>
+                }
           </div>
         );
     }

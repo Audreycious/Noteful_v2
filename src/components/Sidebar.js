@@ -8,6 +8,8 @@ class Sidebar extends Component {
     }
     render() {
         let folders = this.props.folders;
+        let noteId = this.props.noteId;
+        console.log(noteId);
         return (
             <div className="App-sidebar">
                 <ul className='Sidebar-list'>
@@ -22,14 +24,23 @@ class Sidebar extends Component {
                     </li>
                     )}
                 </ul>
-                <div className='SideBar-button-wrapper'>
-                    <Link
-                        to='/add-folder'
-                        type='button'
-                        className="Sidebar-add-folder-button"
-                    >
-                        Add Folder
-                    </Link>
+                <div className='Sidebar-button-wrapper'>
+                    { (noteId && 
+                        <Link
+                            to='/'
+                            type='button'
+                            className="Sidebar-go-back-button"
+                        >
+                            Go Back
+                        </Link>) || 
+                        <Link
+                            to='/'
+                            type='button'
+                            className="Sidebar-add-folder-button"
+                        >
+                            Add Folder
+                        </Link>
+                    }
                 </div>    
             </div>
         );

@@ -1,6 +1,18 @@
 .App-sidebar {
     width: 25vw;
-    height: 100%;
+    height: 85vh;
     background-color: aqua;
-    padding: 1% 0 0 1%;
+}
+
+.Sidebar-button-wrapper, .Sidebar-list li {
+    text-align: end;
+    /* padding: 0 5% 0 0; */
+    height: 40px;
+    margin: 5%;
+    width: 90%;
+}
+
+.Sidebar-list {
+    list-style-type: none;
+    padding: 0;
 }

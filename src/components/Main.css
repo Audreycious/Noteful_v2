@@ -1,3 +1,10 @@
 .App-main {
     padding: 1% 0 0 1%;
+    overflow: scroll;
+    width: 75vw;
 }
+
+.notes-list {
+    list-style-type: none;
+}
+
