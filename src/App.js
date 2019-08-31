@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import './App.css';
-import Main from "./components/Main"
-import Sidebar from './components/Sidebar';
 import STORE from "./store";
+import NoteListNav from './components/NoteListNav'
+import NotePageNav from './components/NotePageNav'
+import NoteListMain from './components/NoteListMain'
+import NotePageMain from './components/NotePageMain'
+// import AddFolder from '../AddFolder/AddFolder'
+// import AddNote from '../AddNote/AddNote'
+import NotesContext from "./components/NotesContext";
 
 class App extends Component {
   state = {
@@ -15,72 +20,94 @@ class App extends Component {
     setTimeout(() => this.setState(STORE), 600);
   }
 
+  handleAddNote = (note) => {
+    this.setState({})
+  }
+
+  handleDeleteNote = (note) => {
+    this.setState({})
+  }
+
+  handleAddFolder = (folder) => {
+    this.setState({})
+  }
+
+  renderNavRoutes() {
+    return (
+      <React.Fragment>
+        {['/', '/folder/:folderId'].map(path =>
+          <Route
+            exact
+            key={path}
+            path={path}
+            component={NoteListNav}
+          />
+        )}
+        <Route
+          path='/note/:noteId'
+          component={NotePageNav}
+        />
+        <Route
+          path='/add-folder'
+          component={NotePageNav}
+        />
+        <Route
+          path='/add-note'
+          component={NotePageNav}
+        />
+      </React.Fragment>
+    )
+  }
+
+  renderMainRoutes() {
+    return (
+      <>
+        {['/', '/folder/:folderId'].map(path =>
+          <Route
+            exact
+            key={path}
+            path={path}
+            component={NoteListMain}
+          />
+        )}
+        <Route
+          path='/note/:noteId'
+          component={NotePageMain}
+        />
+        {/* <Route
+          path='/add-folder'
+          component={}
+        />
+        <Route
+          path='/add-note'
+          component={}
+        /> */}
+      </>
+    )
+  }
+
   render() {
-    const { notes, folders } = this.state;
+    const contextValue = {
+      notes: this.state.notes,
+      folders: this.state.folders,
+      addNote: this.handleAddNote,
+      deleteNote: this.handleDeleteNote,
+      addFolder: this.handleAddFolder
+    }
     return (
         <div className="App">
           <header className="App-header">
             <Link to="/" className="home-button">Noteful</Link>
           </header>
           <div className="App-main-container">
-            <Switch>  
-              <Route 
-                exact path='/' 
-                render={(props) =>
-                  <React.Fragment>
-                    <Sidebar 
-                      folders={folders}
-                      {...props}
-                    />
-                    <Main
-                      notes={notes}
-                      {...props}
-                    />
-                  </React.Fragment>  
-                } 
-              />
-              <Route 
-                path='/folder/:folderId' 
-                render={(props) =>
-                  <React.Fragment>
-                    <Sidebar 
-                      folders={folders}
-                      {...props}
-                    />
-                    <Main
-                      notes={notes}
-                      {...props}
-                      folderId={props.match.params.folderId}
-                    />
-                  </React.Fragment>  
-                }
-              />
-              <Route 
-                path='/note/:noteId' 
-                render={(props) => 
-                  <React.Fragment>
-                    <Sidebar 
-                      notes={notes}
-                      noteId={props.match.params.noteId}
-                      {...props}
-                    />
-                    <Main
-                      notes={notes}
-                      noteId={props.match.params.noteId}
-                      {...props}
-                    />
-                </React.Fragment> 
-                }
-              />
-              <Route 
-                path="/add-folder" 
-
-              />
-              <Route 
-                path="/add-note" 
-
-              />
-            </Switch>  
+            <NotesContext.Provider value={contextValue} >   
+              <nav className='App-nav'>
+                {this.renderNavRoutes()}
+              </nav>
+              <main className='App-main'>
+                {this.renderMainRoutes()}
+              </main>
+            </NotesContext.Provider> 
           </div>
         </div>
     );
