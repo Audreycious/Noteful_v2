@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 import Main from "./components/Main"
 import Sidebar from './components/Sidebar';
@@ -21,7 +21,7 @@ class App extends Component {
     return (
         <div className="App">
           <header className="App-header">
-            <h1>Noteful</h1>
+            <Link to="/" className="home-button">Noteful</Link>
           </header>
           <div className="App-main-container">
             <Switch>  
@@ -30,33 +30,58 @@ class App extends Component {
                 render={(props) =>
                   <React.Fragment>
                     <Sidebar 
-                      folder={folders}
-                      handleShowFolder={this.handleShowFolder}
+                      folders={folders}
                       {...props}
                     />
                     <Main
                       notes={notes}
-                      handleShowNote={this.handleShowNote} 
+                      {...props}
                     />
                   </React.Fragment>  
                 } 
               />
               <Route 
-                path='/folder.:folderId' 
-              
+                path='/folder/:folderId' 
+                render={(props) =>
+                  <React.Fragment>
+                    <Sidebar 
+                      folders={folders}
+                      {...props}
+                    />
+                    <Main
+                      notes={notes}
+                      {...props}
+                      folderId={props.match.params.folderId}
+                    />
+                  </React.Fragment>  
+                }
               />
               <Route 
-                path='/note.:noteId' 
-              
+                path='/note/:noteId' 
+                render={(props) =>
+                  <React.Fragment>
+                    <Sidebar 
+                      folders={folders}
+                      onClickFolder={this.onClickFolder}
+                      {...props}
+                    />
+                    <Main
+                      notes={notes}
+                      onClickNote={this.onClickNote} 
+                      {...props}
+                      folderId={props.match.params.folderId}
+                    />
+                  </React.Fragment>  
+                }
               />
-              {/* <Route 
+              <Route 
                 path="/add-folder" 
-                component={} 
+
               />
               <Route 
                 path="/add-note" 
-                component={} 
-              /> */}
+
+              />
             </Switch>  
           </div>
         </div>
