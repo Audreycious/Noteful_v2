@@ -2,9 +2,21 @@
     padding: 1% 0 0 1%;
     overflow: scroll;
     width: 75vw;
+    background: lightgray;
 }
 
 .notes-list {
     list-style-type: none;
+    padding: 2%;
+    margin: 0 0 2% 0;
+    border-bottom: 1px solid black;
+}
+
+.Main-add-note-button {
+    font-size: 16pt;
+    text-decoration: none;
+    color: dodgerblue;
+    font-weight: 700;
+    margin: 0 0 0 3%;
 }
 

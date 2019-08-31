@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, Router } from 'react-router-dom';
 import "./Sidebar.css";
 
 class Sidebar extends Component {
     static defaultProps = {
-        folders: []
+        folders: [],
+        history: {
+            goBack: () => {}
+        }
     }
-    render() {
+    render(props) {
         let folders = this.props.folders;
         let noteId = this.props.noteId;
+        let notes = this.props.notes;
         console.log(noteId);
+        let folderHolder = null;
+        if (noteId) {
+            notes = notes.filter(note => note.id === noteId)
+            notes.forEach(note => {
+                folderHolder = note.folderId
+            })
+        }
         return (
             <div className="App-sidebar">
                 <ul className='Sidebar-list'>
@@ -26,13 +37,22 @@ class Sidebar extends Component {
                 </ul>
                 <div className='Sidebar-button-wrapper'>
                     { (noteId && 
-                        <Link
-                            to='/'
-                            type='button'
-                            className="Sidebar-go-back-button"
-                        >
-                            Go Back
-                        </Link>) || 
+                        <React.Fragment>
+                            <Link
+                                tag="button"
+                                role="link"
+                                type='button'
+                                className="Sidebar-go-back-button"
+                                onClick={() => {
+                                    props.history.goBack()}}
+                            >
+                                Go Back
+                            </Link>
+                            <p>
+                                Folder: <br />
+                                {folderHolder}
+                            </p>
+                        </React.Fragment>) || 
                         <Link
                             to='/'
                             type='button'

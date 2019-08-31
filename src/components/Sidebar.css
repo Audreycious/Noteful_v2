@@ -16,3 +16,15 @@
     list-style-type: none;
     padding: 0;
 }
+
+.Sidebar-button-wrapper {
+    border-top: 1px solid black;
+    padding: 3% 0 0 0;
+}
+
+.Sidebar-folder-link, .Sidebar-add-folder-button {
+    font-size: 16pt;
+    text-decoration: none;
+    color: gray;
+    font-weight: 700;
+}

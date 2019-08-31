@@ -58,19 +58,17 @@ class App extends Component {
               />
               <Route 
                 path='/note/:noteId' 
-                render={(props) =>
+                render={(props) => 
                   <React.Fragment>
                     <Sidebar 
                       notes={notes}
-                      {...props}
                       noteId={props.match.params.noteId}
                     />
                     <Main
                       notes={notes}
-                      {...props}
                       noteId={props.match.params.noteId}
                     />
-                  </React.Fragment>  
+                </React.Fragment> 
                 }
               />
               <Route 
