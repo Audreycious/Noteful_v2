@@ -6,7 +6,6 @@
 
 .Sidebar-button-wrapper, .Sidebar-list li {
     text-align: end;
-    /* padding: 0 5% 0 0; */
     height: 40px;
     margin: 5%;
     width: 90%;
@@ -15,6 +14,11 @@
 .Sidebar-list {
     list-style-type: none;
     padding: 0;
+}
+
+.Sidebar-folder-link.active {
+    background-color: dodgerblue;
+    color: white;
 }
 
 .Sidebar-button-wrapper {

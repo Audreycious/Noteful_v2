@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { NavLink, Link, Router } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import "./Sidebar.css";
 
 class Sidebar extends Component {
     static defaultProps = {
         folders: [],
-        history: {
+        historyPath: {
             goBack: () => {}
         }
     }
@@ -13,7 +13,7 @@ class Sidebar extends Component {
         let folders = this.props.folders;
         let noteId = this.props.noteId;
         let notes = this.props.notes;
-        console.log(noteId);
+        let historyPath = this.props.history;
         let folderHolder = null;
         if (noteId) {
             notes = notes.filter(note => note.id === noteId)
@@ -39,12 +39,13 @@ class Sidebar extends Component {
                     { (noteId && 
                         <React.Fragment>
                             <Link
+                                to='#'
                                 tag="button"
                                 role="link"
                                 type='button'
                                 className="Sidebar-go-back-button"
                                 onClick={() => {
-                                    props.history.goBack()}}
+                                    historyPath.goBack()}}
                             >
                                 Go Back
                             </Link>

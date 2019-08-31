@@ -12,7 +12,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // fake date loading from API call
     setTimeout(() => this.setState(STORE), 600);
   }
 
@@ -63,10 +62,12 @@ class App extends Component {
                     <Sidebar 
                       notes={notes}
                       noteId={props.match.params.noteId}
+                      {...props}
                     />
                     <Main
                       notes={notes}
                       noteId={props.match.params.noteId}
+                      {...props}
                     />
                 </React.Fragment> 
                 }

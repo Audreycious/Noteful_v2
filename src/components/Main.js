@@ -16,8 +16,6 @@ class Main extends Component {
             notes = notes.filter(note => note.folderId === folderId)
         }
         if (noteId) {
-            console.log(noteId)
-            console.log(notes)
             notes = notes.filter(note => note.id === noteId)
             notes.forEach(note => {
                 contentHolder = note.content
