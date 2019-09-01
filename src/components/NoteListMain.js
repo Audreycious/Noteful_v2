@@ -19,7 +19,7 @@ class NoteListMain extends Component {
         const notesForFolder = getNotesForFolder(notes, folderId)
         return (
             <section className='NoteListMain'>
-                <ul>
+                <ul className="notes-list">
                 {notesForFolder.map(note =>
                     <li key={note.id}>
                     <Note
@@ -30,8 +30,14 @@ class NoteListMain extends Component {
                     </li>
                 )}
                 </ul>
-                <div className='NoteListMain__button-container'>
-                
+                <div className='NoteListMain_button-container'>
+                    <Link
+                        to='/'
+                        type='button'
+                        className="NoteListMain_add-note-button"
+                    >
+                        Add Note
+                    </Link>
                 </div>
             </section>
         )

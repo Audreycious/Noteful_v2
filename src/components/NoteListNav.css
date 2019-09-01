@@ -1,0 +1,34 @@
+.App-nav {
+    width: 25vw;
+    height: 85vh;
+    background-color: aqua;
+}
+
+.NoteListNav-button-wrapper, .NoteListNav_list li {
+    text-align: end;
+    height: 40px;
+    margin: 5%;
+    width: 90%;
+}
+
+.NoteListNav_list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.NoteListNav-folder-link.active {
+    background-color: dodgerblue;
+    color: white;
+}
+
+.NoteListNav_button-wrapper {
+    border-top: 1px solid black;
+    padding: 3% 0 0 0;
+}
+
+.NoteListNav-folder-link, .NoteListNav-add-folder-button {
+    font-size: 16pt;
+    text-decoration: none;
+    color: gray;
+    font-weight: 700;
+}

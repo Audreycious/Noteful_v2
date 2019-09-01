@@ -20,17 +20,17 @@ class App extends Component {
     setTimeout(() => this.setState(STORE), 600);
   }
 
-  handleAddNote = (note) => {
-    this.setState({})
-  }
+  // handleAddNote = (note) => {
+  //   this.setState({})
+  // }
 
-  handleDeleteNote = (note) => {
-    this.setState({})
-  }
+  // handleDeleteNote = (note) => {
+  //   this.setState({})
+  // }
 
-  handleAddFolder = (folder) => {
-    this.setState({})
-  }
+  // handleAddFolder = (folder) => {
+  //   this.setState({})
+  // }
 
   renderNavRoutes() {
     return (
@@ -43,7 +43,7 @@ class App extends Component {
             component={NoteListNav}
           />
         )}
-        <Route
+        {/* <Route
           path='/note/:noteId'
           component={NotePageNav}
         />
@@ -54,7 +54,7 @@ class App extends Component {
         <Route
           path='/add-note'
           component={NotePageNav}
-        />
+        /> */}
       </React.Fragment>
     )
   }
@@ -70,10 +70,10 @@ class App extends Component {
             component={NoteListMain}
           />
         )}
-        <Route
+        {/* <Route
           path='/note/:noteId'
           component={NotePageMain}
-        />
+        /> */}
         {/* <Route
           path='/add-folder'
           component={}
@@ -90,9 +90,9 @@ class App extends Component {
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,
-      addNote: this.handleAddNote,
-      deleteNote: this.handleDeleteNote,
-      addFolder: this.handleAddFolder
+      // addNote: this.handleAddNote,
+      // deleteNote: this.handleDeleteNote,
+      // addFolder: this.handleAddFolder
     }
     return (
         <div className="App">
