@@ -3,6 +3,7 @@ import Note from './Note'
 import NotesContext from './NotesContext'
 import { findNote } from '../notesHelpers'
 import './NotePageMain.css'
+import PropTypes from 'prop-types'
 
 export default class NotePageMain extends React.Component {
   static defaultProps = {
@@ -35,4 +36,9 @@ export default class NotePageMain extends React.Component {
         </div>
       </section>
       )}
+}
+
+NotePageMain.propTypes = {
+  match: PropTypes.object,
+  history: PropTypes.object
 }

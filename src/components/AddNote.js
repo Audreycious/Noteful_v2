@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import NotefulForm from './NotefulForm'
 import NotesContext from './NotesContext'
 import { DateTime } from "luxon"
-// import './AddNote.css'
 
 export default class AddNote extends Component {
   static defaultProps = {

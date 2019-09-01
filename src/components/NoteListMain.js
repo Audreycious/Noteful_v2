@@ -4,6 +4,7 @@ import "./NoteListMain.css";
 import Note from "./Note";
 import NotesContext from "./NotesContext";
 import { getNotesForFolder } from "../notesHelpers";
+import PropTypes from 'prop-types';
 
 class NoteListMain extends Component {
     static defaultProps = {
@@ -42,6 +43,10 @@ class NoteListMain extends Component {
             </section>
         )
     }
+}
+
+NoteListMain.propTypes = {
+    match: PropTypes.object
 }
 
 export default NoteListMain;

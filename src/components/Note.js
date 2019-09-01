@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import './Note.css'
 import NotesContext from "./NotesContext";
+import PropTypes from 'prop-types';
 
 class Note extends Component {
     static defaultProps = {
@@ -57,6 +58,12 @@ class Note extends Component {
             </div>
         )
     }
+}
+
+Note.propTypes = {
+  id: PropTypes.string,
+  name: PropTypes.string,
+  modified: PropTypes.string
 }
 
 export default Note;
