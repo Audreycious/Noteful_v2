@@ -26,7 +26,9 @@
     padding: 3% 0 0 0;
 }
 
-.NoteListNav_folder-link, .NoteListNav_add-folder-button {
+.NoteListNav_folder-link, .NoteListNav_add-folder-button,
+.NotePageNav_back-button,
+.NotePageNav_folder-name {
     font-size: 16pt;
     text-decoration: none;
     color: gray;
@@ -36,4 +38,14 @@
 .NoteListNav_num-notes {
     float: left;
     color: red;
+}
+
+.NotePageNav {
+    text-align: end;
+    padding: 3%;
+}
+
+.folderNameLabel {
+    float: left;
+    color: dodgerblue;
 }

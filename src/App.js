@@ -43,7 +43,7 @@ class App extends Component {
             component={NoteListNav}
           />
         )}
-        {/* <Route
+        <Route
           path='/note/:noteId'
           component={NotePageNav}
         />
@@ -54,7 +54,7 @@ class App extends Component {
         <Route
           path='/add-note'
           component={NotePageNav}
-        /> */}
+        />
       </React.Fragment>
     )
   }
@@ -70,10 +70,10 @@ class App extends Component {
             component={NoteListMain}
           />
         )}
-        {/* <Route
+        <Route
           path='/note/:noteId'
           component={NotePageMain}
-        /> */}
+        />
         {/* <Route
           path='/add-folder'
           component={}
