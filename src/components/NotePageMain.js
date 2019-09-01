@@ -2,7 +2,7 @@ import React from 'react'
 import Note from './Note'
 import NotesContext from './NotesContext'
 import { findNote } from '../notesHelpers'
-// import './NotePageMain.css'
+import './NotePageMain.css'
 
 export default class NotePageMain extends React.Component {
   static defaultProps = {
@@ -12,7 +12,7 @@ export default class NotePageMain extends React.Component {
   }
   static contextType = NotesContext
 
-  handleDeleteNote = noteId => {
+  handleDeleteNote = () => {
     this.props.history.push(`/`)
   }
 
@@ -28,12 +28,11 @@ export default class NotePageMain extends React.Component {
           modified={note.modified}
           onDeleteNote={this.handleDeleteNote}
         />
-        <div className='NotePageMain__content'>
+        <div className='NotePageMain_content'>
           {note.content.split(/\n \r|\n/).map((para, i) =>
             <p key={i}>{para}</p>
           )}
         </div>
       </section>
-    )
-  }
+      )}
 }

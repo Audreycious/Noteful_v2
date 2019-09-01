@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import './App.css';
-import STORE from "./store";
 import NoteListNav from './components/NoteListNav'
 import NotePageNav from './components/NotePageNav'
 import NoteListMain from './components/NoteListMain'
 import NotePageMain from './components/NotePageMain'
-// import AddFolder from '../AddFolder/AddFolder'
-// import AddNote from '../AddNote/AddNote'
+import AddFolder from './components/AddFolder'
+import AddNote from './components/AddNote'
 import NotesContext from "./components/NotesContext";
 
 class App extends Component {
@@ -17,20 +16,57 @@ class App extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => this.setState(STORE), 600);
+    let foldersURL = "http://localhost:9090/folders";
+    let notesURL = "http://localhost:9090/notes";
+    Promise.all([
+      fetch(foldersURL),
+      fetch(notesURL)
+    ])
+    .then(([foldersRes, notesRes]) => {
+      if (!foldersRes.ok) {
+        foldersRes.json()
+        .then(folderJson => Promise.reject(folderJson))
+      }
+      if (!notesRes.ok) {
+        notesRes.json()
+        .then(notesJson => Promise.reject(notesJson))
+      }
+      return Promise.all([
+        foldersRes.json(),
+        notesRes.json()
+      ])
+    })
+    .then(([folders, notes]) => {
+      this.setState({folders, notes})
+    })
+    .catch(error => {
+      alert({error})
+    })
   }
 
-  // handleAddNote = (note) => {
-  //   this.setState({})
-  // }
+  handleAddFolder = folder => {
+    this.setState({
+      folders: [
+        ...this.state.folders,
+        folder
+      ]
+    })
+  }
 
-  // handleDeleteNote = (note) => {
-  //   this.setState({})
-  // }
+  handleDeleteNote = noteId => {
+    this.setState({
+      notes: this.state.notes.filter(note => note.id !== noteId)
+    })
+  }
 
-  // handleAddFolder = (folder) => {
-  //   this.setState({})
-  // }
+  handleAddNote = note => {
+    this.setState({
+      notes: [
+        ...this.state.notes,
+        note
+      ]
+    })
+  }
 
   renderNavRoutes() {
     return (
@@ -74,14 +110,14 @@ class App extends Component {
           path='/note/:noteId'
           component={NotePageMain}
         />
-        {/* <Route
+        <Route
           path='/add-folder'
-          component={}
+          component={AddFolder}
         />
         <Route
           path='/add-note'
-          component={}
-        /> */}
+          component={AddNote}
+        />
       </>
     )
   }
@@ -90,9 +126,9 @@ class App extends Component {
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,
-      // addNote: this.handleAddNote,
-      // deleteNote: this.handleDeleteNote,
-      // addFolder: this.handleAddFolder
+      addNote: this.handleAddNote,
+      deleteNote: this.handleDeleteNote,
+      addFolder: this.handleAddFolder
     }
     return (
         <div className="App">

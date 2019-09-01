@@ -32,7 +32,7 @@ class NoteListMain extends Component {
                 </ul>
                 <div className='NoteListMain_button-container'>
                     <Link
-                        to='/'
+                        to='/add-note'
                         type='button'
                         className="NoteListMain_add-note-button"
                     >
