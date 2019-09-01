@@ -24,8 +24,25 @@ export default class AddNote extends Component {
         folderId: e.target['note-folder-id'].value,
         modified: dt
     }
-    this.context.addNote(newNote)
-    this.props.history.push(`/folder/${newNote.folderId}`)
+    fetch(`http://localhost:9090/notes`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(newNote),
+      })
+        .then(response => {
+          if (!response.ok)
+            return response.json().then(responseJson => Promise.reject(responseJson))
+          return response.json()
+        })
+        .then(responseJson => {
+          this.context.addNote(responseJson)
+          this.props.history.push(`/folder/${responseJson.folderId}`)
+        })
+        .catch(responseJson => {
+          console.error({ responseJson })
+        })
   }
 
   render() {

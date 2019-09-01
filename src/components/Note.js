@@ -14,8 +14,24 @@ class Note extends Component {
     handleClickDelete = e => {
         e.preventDefault()
         const noteId = this.props.id
-        this.context.deleteNote(noteId)
-        this.props.onDeleteNote(noteId)
+        fetch(`http://localhost:9090/notes/${noteId}`, {
+            method: 'DELETE',
+            headers: {
+              'content-type': 'application/json'
+            },
+          })
+            .then(response => {
+              if (!response.ok)
+                return response.json().then(responseJson => Promise.reject(responseJson))
+              return response.json()
+            })
+            .then(() => {
+              this.context.deleteNote(noteId)
+              this.props.onDeleteNote(noteId)
+            })
+            .catch(responseJson => {
+              alert({ responseJson })
+            })
     }
 
     render() {

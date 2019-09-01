@@ -27,11 +27,17 @@
 }
 
 .NoteListNav_folder-link, .NoteListNav_add-folder-button,
-.NotePageNav_back-button,
-.NotePageNav_folder-name {
+.NotePageNav_back-button {
     font-size: 16pt;
     text-decoration: none;
     color: gray;
+    font-weight: 700;
+}
+
+.NotePageNav_folder-name {
+    font-size: 16pt;
+    text-decoration: none;
+    color: dodgerblue;
     font-weight: 700;
 }
 
