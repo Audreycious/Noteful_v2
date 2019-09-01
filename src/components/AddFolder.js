@@ -18,8 +18,37 @@ export default class AddFolder extends Component {
         id: randomId,
         name: e.target['folder-name'].value
     }
-    this.context.addFolder(folder)
-    this.props.history.push(`/folder/${folder.id}`)
+    let validation = this.validateName(folder.name)
+    if (validation) {
+      alert(validation)
+    }
+    else {
+      fetch('http://localhost:9090/folders', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(folder),
+    })
+      .then(response => {
+        if (!response.ok)
+          return response.json().then(responseJson => Promise.reject(responseJson))
+        return response.json()
+      })
+      .then(folder => {
+        this.context.addFolder(folder)
+        this.props.history.push(`/folder/${folder.id}`)
+      })
+      .catch(responseJson => {
+        alert(responseJson)
+      })
+    }
+  }
+
+  validateName(name) {
+    if (name.length === 0) {
+      return 'Name is required';
+    } 
   }
 
   render() {
@@ -35,7 +64,7 @@ export default class AddFolder extends Component {
           </div>
           <div className='buttons'>
             <button type='submit'>
-              Add folder
+              Add Folder
             </button>
           </div>
         </NotefulForm>

@@ -8,6 +8,8 @@ import NotePageMain from './components/NotePageMain'
 import AddFolder from './components/AddFolder'
 import AddNote from './components/AddNote'
 import NotesContext from "./components/NotesContext";
+import NoteMainError from './NoteMainError';
+import NoteNavError from './NoteNavError';
 
 class App extends Component {
   state = {
@@ -137,12 +139,16 @@ class App extends Component {
           </header>
           <div className="App-main-container">
             <NotesContext.Provider value={contextValue} >   
-              <nav className='App-nav'>
-                {this.renderNavRoutes()}
-              </nav>
-              <main className='App-main'>
-                {this.renderMainRoutes()}
-              </main>
+              <NoteNavError>
+                <nav className='App-nav'>
+                  {this.renderNavRoutes()}
+                </nav>
+              </NoteNavError>
+              <NoteMainError>
+                <main className='App-main'>
+                  {this.renderMainRoutes()}
+                </main>
+              </NoteMainError>
             </NotesContext.Provider> 
           </div>
         </div>

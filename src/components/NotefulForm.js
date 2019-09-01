@@ -1,13 +1,16 @@
 import React from 'react'
 import './NotefulForm.css'
+import NotefulFormError from './NotefulFormError';
 
 export default function NotefulForm(props) {
-  const { className, ...otherProps } = props
+  let { ...propsChildren } = props;
   return (
-    <form
-      className={['Noteful-form', className].join(' ')}
-      action='#'
-      {...otherProps}
-    />
+    <NotefulFormError>
+      <form
+        className={'Noteful-form'}
+        action='#'
+        {...propsChildren}
+      />
+    </NotefulFormError>
   )
 }

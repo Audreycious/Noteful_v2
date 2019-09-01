@@ -24,32 +24,55 @@ export default class AddNote extends Component {
         folderId: e.target['note-folder-id'].value,
         modified: dt
     }
-    fetch(`http://localhost:9090/notes`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify(newNote),
-      })
-        .then(response => {
-          if (!response.ok)
-            return response.json().then(responseJson => Promise.reject(responseJson))
-          return response.json()
+    let nameValidation = this.validateName(newNote.name);
+    let folderValidation = this.validateFolder(newNote.folderId);
+    if (nameValidation) {
+      alert(nameValidation)
+    }
+    else if (folderValidation) {
+      alert(folderValidation)
+    }
+    else {
+      fetch(`http://localhost:9090/notes`, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(newNote),
         })
-        .then(responseJson => {
-          this.context.addNote(responseJson)
-          this.props.history.push(`/folder/${responseJson.folderId}`)
-        })
-        .catch(responseJson => {
-          console.error({ responseJson })
-        })
+          .then(response => {
+            if (!response.ok)
+              return response.json().then(responseJson => Promise.reject(responseJson))
+            return response.json()
+          })
+          .then(responseJson => {
+            this.context.addNote(responseJson)
+            this.props.history.push(`/folder/${responseJson.folderId}`)
+          })
+          .catch(responseJson => {
+            alert(responseJson)
+          }
+        )
+      }
+  }
+
+  validateName(name) {
+    if (name.length === 0) {
+      return 'Name is required';
+    } 
+  }
+
+  validateFolder(folderId) {
+    if (folderId === "Select Folder") {
+      return 'Select a folder';
+    } 
   }
 
   render() {
     const { folders=[] } = this.context
     return (
       <section className='AddNote'>
-        <h2>Create a note</h2>
+        <h2>Add a NotefulForm</h2>
         <NotefulForm onSubmit={this.handleSubmit}>
           <div className='field'>
             <label htmlFor='note-name-input'>
@@ -68,7 +91,7 @@ export default class AddNote extends Component {
               Folder
             </label>
             <select id='note-folder-select' name='note-folder-id'>
-              <option value={null}>...</option>
+              <option value={null}>Select Folder</option>
               {folders.map(folder =>
                 <option key={folder.id} value={folder.id}>
                   {folder.name}
@@ -76,11 +99,9 @@ export default class AddNote extends Component {
               )}
             </select>
           </div>
-          <div className='buttons'>
-            <button type='submit'>
-              Add note
-            </button>
-          </div>
+          <button type='submit'>
+            Add Note
+          </button>
         </NotefulForm>
       </section>
     )
