@@ -18,8 +18,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let foldersURL = "http://localhost:9090/folders";
-    let notesURL = "http://localhost:9090/notes";
+    let foldersURL = "http://localhost:8000/api/folders";
+    let notesURL = "http://localhost:8000/api/notes";
     Promise.all([
       fetch(foldersURL),
       fetch(notesURL)
@@ -42,11 +42,20 @@ class App extends Component {
       this.setState({folders, notes})
     })
     .catch(error => {
-      alert({error})
+      alert(error)
     })
   }
 
   handleAddFolder = folder => {
+    let foldersURL = "http://localhost:8000/api/folders";
+    fetch(foldersURL, {
+      method: 'post',
+      body: JSON.stringify(folder)})
+      .then(response => {
+        if (response.error) {
+        alert(response.error)
+      }
+    })
     this.setState({
       folders: [
         ...this.state.folders,
