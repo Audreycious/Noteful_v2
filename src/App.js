@@ -39,6 +39,8 @@ class App extends Component {
       ])
     })
     .then(([folders, notes]) => {
+      console.log([folders, notes])
+      
       this.setState({folders, notes})
     })
     .catch(error => {
@@ -47,15 +49,6 @@ class App extends Component {
   }
 
   handleAddFolder = folder => {
-    let foldersURL = "http://localhost:8000/api/folders";
-    fetch(foldersURL, {
-      method: 'post',
-      body: JSON.stringify(folder)})
-      .then(response => {
-        if (response.error) {
-        alert(response.error)
-      }
-    })
     this.setState({
       folders: [
         ...this.state.folders,
@@ -82,7 +75,7 @@ class App extends Component {
   renderNavRoutes() {
     return (
       <React.Fragment>
-        {['/', '/folder/:folderId'].map(path =>
+        {['/', '/folders/:folderId'].map(path =>
           <Route
             exact
             key={path}
@@ -91,7 +84,7 @@ class App extends Component {
           />
         )}
         <Route
-          path='/note/:noteId'
+          path='/notes/:noteId'
           component={NotePageNav}
         />
         <Route
@@ -109,7 +102,7 @@ class App extends Component {
   renderMainRoutes() {
     return (
       <>
-        {['/', '/folder/:folderId'].map(path =>
+        {['/', '/folders/:folderId'].map(path =>
           <Route
             exact
             key={path}
@@ -118,7 +111,7 @@ class App extends Component {
           />
         )}
         <Route
-          path='/note/:noteId'
+          path='/notes/:noteId'
           component={NotePageMain}
         />
         <Route

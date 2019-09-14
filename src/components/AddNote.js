@@ -15,12 +15,11 @@ export default class AddNote extends Component {
     e.preventDefault()
     let dt = new DateTime.local();
     dt = dt.toISO();
-    let randomId = '_' + Math.random().toString(36).substr(2, 9);
+    // let randomId = '_' + Math.random().toString(36).substr(2, 9);
     const newNote = {
-        id: randomId,
         name: e.target['note-name'].value,
         content: e.target['note-content'].value,
-        folderId: e.target['note-folder-id'].value,
+        folderid: e.target['note-folder-id'].value,
         modified: dt
     }
     let nameValidation = this.validateName(newNote.name);
@@ -32,27 +31,30 @@ export default class AddNote extends Component {
       alert(folderValidation)
     }
     else {
-      fetch(`http://localhost:9090/notes`, {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json'
-          },
-          body: JSON.stringify(newNote),
-        })
-          .then(response => {
-            if (!response.ok)
-              return response.json().then(responseJson => Promise.reject(responseJson))
-            return response.json()
-          })
-          .then(responseJson => {
-            this.context.addNote(responseJson)
-            this.props.history.push(`/folder/${responseJson.folderId}`)
-          })
-          .catch(responseJson => {
-            alert(responseJson)
-          }
-        )
+      let addNoteURL = "http://localhost:8000/api/add-note"
+      let options = {
+        method: 'POST',
+        body: JSON.stringify(newNote),
+        headers: {
+          'Content-Type': 'application/json',
+        }
       }
+      fetch(addNoteURL, options)
+        .then(response => {
+          if (!response.ok) {
+            return response.json().then(responseJson => Promise.reject(responseJson))
+          }
+          return response
+        })
+        .then(response => response.json())
+        .then(data => {
+          this.context.addNote(data)
+          return data
+        })
+        .then((data) => {
+          this.props.history.push(`/folders/${data.folderid}`)
+        })
+    }
   }
 
   validateName(name) {
@@ -71,7 +73,7 @@ export default class AddNote extends Component {
     const { folders=[] } = this.context
     return (
       <section className='AddNote'>
-        <h2>Add a NotefulForm</h2>
+        <h2>Add a Note</h2>
         <NotefulForm onSubmit={this.handleSubmit}>
           <div className='field'>
             <label htmlFor='note-name-input'>

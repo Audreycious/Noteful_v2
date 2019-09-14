@@ -2,6 +2,7 @@
     width: 25vw;
     height: 85vh;
     background-color: aqua;
+    overflow: scroll;
 }
 
 .NoteListNav_button-wrapper, .NoteListNav_list li {
@@ -26,8 +27,12 @@
     padding: 3% 0 0 0;
 }
 
+.NoteListNav_folder-link {
+    
+}
+
 .NoteListNav_folder-link, .NoteListNav_add-folder-button {
-    font-size: 16pt;
+    font-size: 2.3vw;
     text-decoration: none;
     color: gray;
     font-weight: 700;

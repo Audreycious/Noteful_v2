@@ -13,9 +13,7 @@ export default class AddFolder extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    let randomId = '_' + Math.random().toString(36).substr(2, 9);
     const folder = {
-        id: randomId,
         name: e.target['folder-name'].value
     }
     let validation = this.validateName(folder.name)
@@ -23,25 +21,26 @@ export default class AddFolder extends Component {
       alert(validation)
     }
     else {
-      fetch('http://localhost:9090/folders', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(folder),
-    })
-      .then(response => {
-        if (!response.ok)
-          return response.json().then(responseJson => Promise.reject(responseJson))
-        return response.json()
-      })
-      .then(folder => {
-        this.context.addFolder(folder)
-        this.props.history.push(`/folder/${folder.id}`)
-      })
-      .catch(responseJson => {
-        alert(responseJson)
-      })
+      let addFolderURL = "http://localhost:8000/api/add-folder"
+      let options = {
+        method: 'POST',
+        body: JSON.stringify(folder),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+      fetch(addFolderURL, options)
+        .then(response => {
+          if (!response.ok) {
+            return response.json().then(responseJson => Promise.reject(responseJson))
+          }
+          return response
+        })
+        .then(response => response.json())
+        .then(folder => {
+          this.context.addFolder(folder)
+          return this.props.history.push(`/folders/${folder.id}`)
+        })
     }
   }
 

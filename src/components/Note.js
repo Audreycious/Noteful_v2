@@ -41,7 +41,7 @@ class Note extends Component {
         return (
             <div className='Note'>
                 <h2 className='Note-title'>
-                    <Link to={`/note/${this.props.id}`}>
+                    <Link to={`/notes/${this.props.id}`}>
                         {this.props.name}
                     </Link>
                 </h2>

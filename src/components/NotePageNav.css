@@ -4,29 +4,6 @@
     background-color: aqua;
 }
 
-.NoteListNav_button-wrapper, .NoteListNav_list li {
-    text-align: end;
-    height: 40px;
-    margin: 5%;
-    width: 90%;
-}
-
-.NoteListNav_list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.NoteListNav_folder-link.active {
-    background-color: dodgerblue;
-    color: white;
-}
-
-.NoteListNav_button-wrapper {
-    border-top: 1px solid black;
-    padding: 3% 0 0 0;
-}
-
-.NoteListNav_folder-link, .NoteListNav_add-folder-button,
 .NotePageNav_back-button {
     font-size: 16pt;
     text-decoration: none;
