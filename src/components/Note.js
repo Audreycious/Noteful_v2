@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { DateTime } from 'luxon';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { DateTime } from 'luxon'
 import './Note.css'
-import NotesContext from "./NotesContext";
-import PropTypes from 'prop-types';
+import NotesContext from "./NotesContext"
+import PropTypes from 'prop-types'
+import config from "../config"
 
 class Note extends Component {
     static defaultProps = {
         onDeleteNote: () => {},
         dateString: [],
     }
-    static contextType = NotesContext;
+    static contextType = NotesContext
 
     handleClickDelete = e => {
         e.preventDefault()
         const noteId = this.props.id
     
-        fetch(`http://localhost:8000/api/notes/${noteId}`, {
+        fetch(config.API_ENDPOINT + `api/notes/${noteId}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json'
@@ -38,7 +39,7 @@ class Note extends Component {
 
     render() {
         let dateString = this.props.modified;
-        let dateTime = DateTime.fromISO(dateString).toFormat('LLL dd, yyyy');
+        let dateTime = DateTime.fromISO(dateString).toFormat('LLL dd, yyyy')
         return (
             <div className='Note'>
                 <h2 className='Note-title'>
@@ -67,4 +68,4 @@ Note.propTypes = {
   modified: PropTypes.string
 }
 
-export default Note;
+export default Note

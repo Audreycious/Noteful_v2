@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
-import './App.css';
+import React, { Component } from 'react'
+import { Route, Link } from 'react-router-dom'
+import './App.css'
 import NoteListNav from './components/NoteListNav'
 import NotePageNav from './components/NotePageNav'
 import NoteListMain from './components/NoteListMain'
 import NotePageMain from './components/NotePageMain'
 import AddFolder from './components/AddFolder'
 import AddNote from './components/AddNote'
-import NotesContext from "./components/NotesContext";
-import NoteMainError from './NoteMainError';
-import NoteNavError from './NoteNavError';
+import NotesContext from "./components/NotesContext"
+import NoteMainError from './NoteMainError'
+import NoteNavError from './NoteNavError'
+import config from "./config"
 
 class App extends Component {
   state = {
@@ -18,8 +19,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let foldersURL = "http://localhost:8000/api/folders";
-    let notesURL = "http://localhost:8000/api/notes";
+    let foldersURL = config.API_ENDPOINT + `api/folders`
+    let notesURL = config.API_ENDPOINT + `api/notes`
     Promise.all([
       fetch(foldersURL),
       fetch(notesURL)

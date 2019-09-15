@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import NotefulForm from './NotefulForm'
 import NotesContext from './NotesContext'
 import { DateTime } from "luxon"
+import config from "../config"
 
 export default class AddNote extends Component {
   static defaultProps = {
@@ -31,7 +32,7 @@ export default class AddNote extends Component {
       alert(folderValidation)
     }
     else {
-      let addNoteURL = "http://localhost:8000/api/add-note"
+      let addNoteURL = config.API_ENDPOINT + `api/add-note`
       let options = {
         method: 'POST',
         body: JSON.stringify(newNote),

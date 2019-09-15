@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import NotefulForm from './NotefulForm'
 import NotesContext from './NotesContext'
+import config from "../config"
 // import './AddFolder.css'
 
 export default class AddFolder extends Component {
@@ -21,7 +22,7 @@ export default class AddFolder extends Component {
       alert(validation)
     }
     else {
-      let addFolderURL = "http://localhost:8000/api/add-folder"
+      let addFolderURL = config.API_ENDPOINT + `api/add-folder`
       let options = {
         method: 'POST',
         body: JSON.stringify(folder),
