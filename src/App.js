@@ -39,12 +39,11 @@ class App extends Component {
       ])
     })
     .then(([folders, notes]) => {
-      console.log([folders, notes])
-      
+      // console.log([folders, notes])
       this.setState({folders, notes})
     })
     .catch(error => {
-      alert(error)
+      alert(error.message)
     })
   }
 
@@ -58,8 +57,9 @@ class App extends Component {
   }
 
   handleDeleteNote = noteId => {
+    let newNotes = this.state.notes.filter(note => note.id !== noteId)
     this.setState({
-      notes: this.state.notes.filter(note => note.id !== noteId)
+      notes: newNotes
     })
   }
 

@@ -15,10 +15,11 @@ class Note extends Component {
     handleClickDelete = e => {
         e.preventDefault()
         const noteId = this.props.id
-        fetch(`http://localhost:9090/notes/${noteId}`, {
+    
+        fetch(`http://localhost:8000/api/notes/${noteId}`, {
             method: 'DELETE',
             headers: {
-              'content-type': 'application/json'
+              'Content-Type': 'application/json'
             },
           })
             .then(response => {

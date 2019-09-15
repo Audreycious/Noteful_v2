@@ -19,11 +19,11 @@ export default class AddNote extends Component {
     const newNote = {
         name: e.target['note-name'].value,
         content: e.target['note-content'].value,
-        folderid: e.target['note-folder-id'].value,
+        folder_id: e.target['note-folder-id'].value,
         modified: dt
     }
     let nameValidation = this.validateName(newNote.name);
-    let folderValidation = this.validateFolder(newNote.folderId);
+    let folderValidation = this.validateFolder(newNote.folder_id);
     if (nameValidation) {
       alert(nameValidation)
     }
@@ -52,7 +52,7 @@ export default class AddNote extends Component {
           return data
         })
         .then((data) => {
-          this.props.history.push(`/folders/${data.folderid}`)
+          this.props.history.push(`/folders/${data.folder_id}`)
         })
     }
   }
